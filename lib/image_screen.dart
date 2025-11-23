@@ -22,6 +22,7 @@ class _ImageScreenState extends State<ImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black45,
       body: Center(
         child: Image.asset(
           "assets/images/png/Whatsapp-Logo-PNG-Images.png"
