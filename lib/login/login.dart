@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:whatsapppro/login/sign_up.dart';
 import 'package:whatsapppro/screens/first_Page.dart';
 
+import '../core/utills/shared_preferences_helper.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -10,6 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool isChecked = false;
   bool isPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -64,13 +67,34 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FirstPage(),),);
-              }, child: Text("Login")),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Remember me"),
+                Checkbox(
+                    checkColor: Colors.white,
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                      });
+                    },
+                ),
+              ],
+            ),
+                  ElevatedButton(onPressed: () async {
+                    print("isChecked: $isChecked");
+                    await SharedPreferencesHelper.saveBool('Remembered', isChecked);
+                    final bool? Remembered = await SharedPreferencesHelper.getBool('Remembered');
+                    print("Remembered: $Remembered");
+                    Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => FirstPage(),),);
+                  }, child: Text("Login")),
 
-              ElevatedButton(onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUp(),),);
-              }, child: Text("Sign up")),
+                  ElevatedButton(onPressed: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUp(),),);
+                  }, child: Text("Sign up")),
+
             ],
           ),
         ),

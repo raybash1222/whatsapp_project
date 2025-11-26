@@ -16,6 +16,9 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
+        leading: IconButton(onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()),);
+        }, icon: Icon(Icons.arrow_back)),
         title: Text("Sign up",style: TextStyle(color: Colors.green),),
         centerTitle: true,
       ),
